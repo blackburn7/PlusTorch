@@ -1,6 +1,41 @@
 #include "tensor.h"
 #include <iostream>
 #include <math.h>
+#include <random>
+
+
+
+class Linear {
+private:
+  float *weights;
+  float *bias;
+  int fan_in;
+  int fan_out;
+
+
+
+
+public:
+
+  Linear(int fan_in, int fan_out): fan_in(fan_in), fan_out(fan_out) {
+
+    // initialize weights to normal dist.
+    weights = new float[fan_in * fan_out];
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::normal_distribution<double> distribution(0, 1);
+    for (int t = 0; t < fan_in; ++t) {
+        for (int c = 0; c < fan_out; ++c) {
+          weights[t * fan_out + c] = distribution(gen);
+      }
+    }
+    
+  }
+
+  void forward(Tensor* input);
+  void backward();
+
+};
 
 
 
@@ -29,3 +64,5 @@ public:
 
   void forward(Tensor* input);
 };
+
+
