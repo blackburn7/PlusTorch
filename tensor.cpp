@@ -20,6 +20,15 @@ void Tensor::randn() {
 
 }
 
+void Tensor::arange() {
+  for (int b = 0; b < this->B; ++b) {
+    for (int t = 0; t < this->T; ++t) {
+        for (int c = 0; c < this->C; ++c) {
+          this->data[b * this->T * this->C + t * this->C + c] = b * this->T * this->C + t * this->C + c;
+      }
+    }
+  }
+}
 
 
 

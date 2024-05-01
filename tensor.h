@@ -1,5 +1,7 @@
 
 #include <tuple>
+#include <algorithm>
+
 
 #ifndef MYHEADER_H
 #define MYHEADER_H
@@ -8,12 +10,17 @@ class Tensor {
 
 public:
   float* data;
+  float* grad;
   int B;
   int T;
   int C;
 
-  Tensor(int B, int T, int C, float* data = nullptr): B(B), T(T), C(C) {
-    if (!data) data = new float[B*T*C];
+  bool requires_grad;
+
+Tensor(int B, int T, int C, float* data = nullptr, bool requires_grad = true): data(data), B(B), T(T), C(C), requires_grad(requires_grad) {
+    // allocate new data & grad memory if needed
+    this->data = data ? data : new float[B*T*C];
+    this->grad = requires_grad ? new float[B*T*C] : nullptr;
   }
 
   // Copy constructor
@@ -25,7 +32,8 @@ public:
 
   // Destructor
   ~Tensor() {
-      delete[] data;
+    delete[] data;  
+    delete[] grad;
   }
 
   // initializers

@@ -28,7 +28,7 @@ public:
   }
 
   
-  void forward(Tensor* input);
+  Tensor* forward(Tensor* input);
   void backward(Tensor* input, Tensor* output);
 
 };
