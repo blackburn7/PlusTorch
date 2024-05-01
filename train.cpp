@@ -1,5 +1,5 @@
 #include "tensor.h"
-#include "model.h"
+#include "layers/model.h"
 #include <iostream>
 
 int main() {
@@ -12,8 +12,9 @@ int main() {
 
   arr1.arange();
   std::cout << arr1;
-
-  
+  Linear lin1(3, 2);
+  Tensor* out = lin1.forward(&arr1);
+  std::cout << *out;
 
 
   

@@ -1,7 +1,7 @@
 
 #include <tuple>
 #include <algorithm>
-
+#include <iostream>
 
 #ifndef MYHEADER_H
 #define MYHEADER_H
@@ -17,8 +17,11 @@ public:
 
   bool requires_grad;
 
-Tensor(int B, int T, int C, float* data = nullptr, bool requires_grad = true): data(data), B(B), T(T), C(C), requires_grad(requires_grad) {
+  Tensor(int B, int T, int C, float* data = nullptr, bool requires_grad = true): B(B), T(T), C(C), requires_grad(requires_grad) {
     // allocate new data & grad memory if needed
+
+
+
     this->data = data ? data : new float[B*T*C];
     this->grad = requires_grad ? new float[B*T*C] : nullptr;
   }
