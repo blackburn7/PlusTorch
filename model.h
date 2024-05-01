@@ -12,28 +12,24 @@ private:
   int fan_in;
   int fan_out;
 
-
+  float *dweights;
+  float *dbias;
 
 
 public:
 
-  Linear(int fan_in, int fan_out): fan_in(fan_in), fan_out(fan_out) {
 
-    // initialize weights to normal dist.
-    weights = new float[fan_in * fan_out];
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::normal_distribution<double> distribution(0, 1);
-    for (int t = 0; t < fan_in; ++t) {
-        for (int c = 0; c < fan_out; ++c) {
-          weights[t * fan_out + c] = distribution(gen);
-      }
-    }
-    
+  Linear(int fan_in, int fan_out);
+  ~Linear() {
+    free(weights);
+    free(bias);
+    free(dweights);
+    free(dbias);
   }
 
+  
   void forward(Tensor* input);
-  void backward();
+  void backward(Tensor* input, Tensor* output);
 
 };
 
