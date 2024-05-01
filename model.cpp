@@ -2,21 +2,6 @@
 
 
 
-void Tensor::print() {
-  for (int b = 0; b < this->B; ++b) {
-    for (int t = 0; t < this->T; ++t) {
-        for (int c = 0; c < this->C; ++c) {
-            std::cout << this->data[b * this->T * this->C + t * this->C + c] << " ";
-        }
-        std::cout << std::endl;  // Newline after each 'c' loop iteration
-    }
-    std::cout << std::endl;  // Additional newline after each 'b' loop iteration
-  }
-}
-
-
-
-
 // forward function for layernorm
 void LayerNorm::forward(Tensor* input) {
     
@@ -50,6 +35,7 @@ void LayerNorm::forward(Tensor* input) {
 
       // calc rstd
       float denom = 1.0f / sqrtf(var + eps);
+
       for (int i = 0; i < input->C; i++) {
         float n = (denom * (x[i] - mean));
         float o = n * this->gamma[i] + this->beta[i];

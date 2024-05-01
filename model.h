@@ -1,28 +1,6 @@
-
+#include "tensor.h"
 #include <iostream>
 #include <math.h>
-
-class Tensor {
-// private:
-
-public:
-  float* data;
-  int B;
-  int T;
-  int C;
-
-  Tensor(int B, int T, int C): B(B), T(T), C(C) {
-    data = new float[B*T*C];
-  }
-
-  void print();
-
-
-};
-
-
-
-
 
 
 
@@ -46,6 +24,7 @@ public:
     this->gamma = new float[dim];
     this->beta = new float[dim];
     this->eps = eps;
+    std::fill(gamma, gamma + dim, 1);
   }
 
   void forward(Tensor* input);
